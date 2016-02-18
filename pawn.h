@@ -1,13 +1,17 @@
 #ifndef PAWN_H
 #define PAWN_H
 #include "piece.h"
-
+#include "direction.h"
+#include <string>
+#include "side.h"
 class Pawn : public Piece
 {
 private:
-    int idPlayer_;
+    Side side_;
 public:
-    Pawn();
+    Pawn(Side side);
+    void movePawn();
+    string toString();
 };
 
 #endif // PAWN_H

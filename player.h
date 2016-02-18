@@ -7,6 +7,7 @@ using namespace std;
 class Player{
 private:
     string name_;
+    //Pawn pawn_;
     bool winner_=false;
     bool isPlaying;
     int nbWall_;
@@ -24,6 +25,9 @@ public:
     inline Side getSide(){
         return side_;
     }
+    //inline Pawn getPawn(){
+      //  return pawn_;
+    //}
 
 };
 

@@ -3,15 +3,35 @@
 
 #include "piece.h"
 #include <vector>
+#include <string>
+using namespace std;
 class Board
 {
 private:
-    static const int size_;
-    vector <vector<*Piece,size_>,size_> board_;
-
+    int size_;
+    vector <vector<Piece*>> board_;
 public:
-    Board();
-    void validateSize();
+    Board ();
+    Board(int size);
+    bool validatePosition(pair <int,int> position);
+    string toString ();
+    inline bool isEmpty(pair <int,int> position){
+        return board_[position.first][position.second]==nullptr;
+    }
+
+    inline vector <vector<Piece*>> getBoard(){
+        return board_;
+    }
+    inline int getSize(){
+        return size_;
+    }
+    inline void placePiece(Piece *p){
+        board_[p->getPosition().first][p->getPosition().second]=p;
+    }
+    inline void removePiece(pair <int, int> position){
+        board_[position.first][position.second]=new Piece();
+    }
+
 };
 
 #endif // BOARD_H
