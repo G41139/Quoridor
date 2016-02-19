@@ -9,7 +9,7 @@ class Pawn : public Piece
 private:
     Side side_;
 public:
-    Pawn(Side side);
+    Pawn();
     void movePawn();
     string toString();
 };

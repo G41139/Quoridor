@@ -9,7 +9,7 @@ protected:
     pair <int,int> position_;
 public:
     Piece();
-    Piece(pair <int,int> position);
+    //Piece(pair <int,int> position);
     inline pair<int,int> getPosition(){
         return position_;
 

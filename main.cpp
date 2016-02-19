@@ -10,9 +10,7 @@ int main()
     cout << "Veuillez entrez la taille du tableau : ";
     cin >> size ;
     pair <int,int>pos {4,4};
-    Piece *p =new Piece(pos);
     Board board (size);
-    board.placePiece(p);
     cout << board.toString();
 
     return 0;

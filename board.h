@@ -15,6 +15,7 @@ public:
     Board(int size);
     bool validatePosition(pair <int,int> position);
     string toString ();
+    void initializeBoardWall();
     inline bool isEmpty(pair <int,int> position){
         return board_[position.first][position.second]==nullptr;
     }

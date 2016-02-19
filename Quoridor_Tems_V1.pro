@@ -7,7 +7,8 @@ SOURCES += main.cpp \
     player.cpp \
     piece.cpp \
     pawn.cpp \
-    board.cpp
+    board.cpp \
+    wall.cpp
 
 HEADERS += \
     player.h \
@@ -15,5 +16,6 @@ HEADERS += \
     pawn.h \
     side.h \
     board.h \
-    direction.h
+    direction.h \
+    wall.h
 
