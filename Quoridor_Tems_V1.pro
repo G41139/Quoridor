@@ -6,16 +6,12 @@ CONFIG -= qt
 SOURCES += main.cpp \
     player.cpp \
     piece.cpp \
-    pawn.cpp \
-    board.cpp \
-    wall.cpp
+    board.cpp
 
 HEADERS += \
     player.h \
     piece.h \
-    pawn.h \
     side.h \
     board.h \
-    direction.h \
-    wall.h
+    direction.h
 

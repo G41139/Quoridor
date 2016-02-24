@@ -4,7 +4,7 @@
 
 enum class Side
 {
-NORTH , SUD, EST , WEST
+NORTH , SOUTH, EST , WEST, BLANK
 };
 
 #endif // SIDE_H

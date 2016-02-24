@@ -1,7 +1,6 @@
 #ifndef PLAYER
 #define PLAYER
 #include <string>
-#include "pawn.h"
 #include "side.h"
 using namespace std;
 class Player{

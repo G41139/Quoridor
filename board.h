@@ -32,6 +32,8 @@ public:
     inline void removePiece(pair <int, int> position){
         board_[position.first][position.second]=new Piece();
     }
+    bool isFree (pair <int, int> position);
+    void placeWall();
 
 };
 
