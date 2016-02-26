@@ -1,31 +1,25 @@
 #include "piece.h"
-Piece::Piece() {
-    pair <int,int> pos {0,0};
-    position_=pos;
-}
 
-Piece::Piece(pair<int, int> position) : position_(position)
-{
-}
-
-Wall::Wall() : Piece() {
+Wall::Wall()  {
     isPlaced_=false;
 }
 
 Wall::Wall (pair <int,int> pos){
-    Piece();
-    this->setPosition(pos);
+
+    position_=pos;
     isPlaced_=false;
 }
 
-Pawn::Pawn() : Piece(){
+Pawn::Pawn() {
+    isPlaced_=false;
     side_=Side::BLANK;
 }
 
-Pawn::Pawn(Side side, pair <int, int> pos) : Piece(pos) {
+Pawn::Pawn(Side side, pair <int, int> pos) {
+    position_=pos;
     side_=side;
 }
-string Piece::toString(){
+string Wall::toString(){
         return " # ";
 }
 
@@ -49,4 +43,5 @@ string Pawn::toString(){
         break;
     }
     return ch;
-    }
+}
+

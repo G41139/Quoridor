@@ -4,6 +4,7 @@
 #include "piece.h"
 #include <vector>
 #include <string>
+#include "direction.h"
 using namespace std;
 class Board
 {
@@ -13,27 +14,26 @@ private:
 public:
     Board ();
     Board(int size);
-    bool validatePosition(pair <int,int> position);
     string toString ();
-    void initializeBoardWall();
-    inline bool isEmpty(pair <int,int> position){
-        return board_[position.first][position.second]==nullptr;
-    }
-
+    void placeWall(Wall *wall);
+    void placePawn(Pawn *Pawn, pair <int,int> pos);
+    void movePawn(Direction direction, Pawn *pawn);
+    bool checkWall(pair <int,int> pos);
+    bool checkPawn(Direction direction, pair <int,int>pos);
     inline vector <vector<Piece*>> getBoard(){
         return board_;
     }
     inline int getSize(){
         return size_;
     }
-    inline void placePiece(Piece *p){
-        board_[p->getPosition().first][p->getPosition().second]=p;
+    inline bool isFree (pair <int, int> position){
+        return !(board_[position.first][position.second]->isEmpty());
     }
-    inline void removePiece(pair <int, int> position){
-        board_[position.first][position.second]=new Piece();
+    inline Piece* getPiece(pair <int,int> pos){
+        return board_[pos.first][pos.second];
     }
-    bool isFree (pair <int, int> position);
-    void placeWall();
+
+
 
 };
 
