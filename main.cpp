@@ -25,6 +25,12 @@ int main()
     cout<< test->isEmpty()<< endl;
     board.movePawn(Direction::SUD_WEST,pawn);
 
+    pair <int,int> posTemp {0,18};
+    board.placeWall(posTemp,Alignement::HORIZONTAL);
+
+    pair <int,int> pos2 {1,5};
+    board.placeWall(pos2,Alignement::VERTICAL);
+
     cout << endl;
 
     cout << board.toString();

@@ -2,12 +2,13 @@
 
 Wall::Wall()  {
     isPlaced_=false;
+    alignement_=Alignement::BLANK;
 }
 
-Wall::Wall (pair <int,int> pos){
-
+Wall::Wall (pair <int,int> pos, Alignement alignement){
+    alignement_=alignement;
     position_=pos;
-    isPlaced_=false;
+    isPlaced_=true;
 }
 
 Pawn::Pawn() {
@@ -20,23 +21,29 @@ Pawn::Pawn(Side side, pair <int, int> pos) {
     side_=side;
 }
 string Wall::toString(){
-        return " # ";
+    string ch="";
+    if(isPlaced_){
+        ch=" * ";
+    }else{
+        ch=" # ";
+    }
+    return ch;
 }
 
 string Pawn::toString(){
     string ch="";
     switch(side_){
     case Side::NORTH:
-        ch="J1";
+        ch=" 1 ";
         break;
     case Side::SOUTH:
-        ch="J2";
+        ch=" 2 ";
         break;
     case Side::WEST:
-        ch="J3";
+        ch=" 3 ";
         break;
     case Side::EST:
-         ch="J4";
+         ch=" 4 ";
          break;
     case Side::BLANK:
         ch=" P ";

@@ -37,20 +37,53 @@ string Board::toString(){
     return ch;
 }
 
+void Board::placeWall(pair<int, int> pos, Alignement alignement)
+{
+    if((alignement==Alignement::HORIZONTAL && (pos.first==0 || pos.first==size_ || (pos.second==0 && pos.first % 2 ==0) || pos.second==size_)) ||
+         (alignement==Alignement::VERTICAL && (pos.second==0 || pos.second==size_ || (pos.first==0 && pos.second % 2 ==0) || pos.second==size_)) ){
+        throw new invalid_argument ("A wall can be place on the bord of the board game !");
+    }
+    switch (alignement){
+        case Alignement::HORIZONTAL:
+            if(board_[pos.first][pos.second]->isEmpty() && board_[pos.first][pos.second+1]->isEmpty() && board_[pos.first][pos.second+2]->isEmpty() ) {
+                Wall *w1 = new Wall (pos,alignement);
+                pair <int,int> pos2 {pos.first,pos.second+1};
+                Wall *w2= new Wall (pos2,alignement);
+                pair <int,int> pos3 {pos.first,pos.first+2};
+                Wall *w3 = new Wall (pos3,alignement);
+                board_[pos.first][pos.second]=w1;
+                board_[pos.first][pos.second+1]=w2;
+                board_[pos.first][pos.second+2]=w3;
+            }else{
+                throw new invalid_argument ("The position is invalid !");
+            }
+            break;
+        case Alignement::VERTICAL:
+        if(board_[pos.first][pos.second]->isEmpty() && board_[pos.first+1][pos.second]->isEmpty() && board_[pos.first+2][pos.second]->isEmpty() ) {
+            Wall *w1 = new Wall (pos,alignement);
+            pair <int,int> pos2 {pos.first+1,pos.second};
+            Wall *w2= new Wall (pos2,alignement);
+            pair <int,int> pos3 {pos.first+2,pos.first};
+            Wall *w3 = new Wall (pos3,alignement);
+            board_[pos.first][pos.second]=w1;
+            board_[pos.first+1][pos.second]=w2;
+            board_[pos.first+2][pos.second]=w3;
+        }else{
+            throw new invalid_argument ("The position is invalid !");
+        }
+
+    }
+}
+
 void Board::placePawn(Pawn *pawn, pair <int,int> pos)
 {
     board_[pos.first][pos.second]=pawn;
 }
 
-
-bool Board::checkWall(pair <int,int> pos)
-{
-
-}
-
 void Board::movePawn(Direction direction, Pawn *pawn)
 {
     pair<int,int> pos=pawn->getPosition();
+    //Ajouter des exception à la place des booléens result
     bool result=true;
     switch (direction){
         case Direction::NORTH:

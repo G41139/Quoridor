@@ -4,6 +4,7 @@
 #include <string>
 #include "side.h"
 #include "direction.h"
+#include "alignement.h"
 using namespace std;
 
 //Définition de la classe Piece qui représente soit un mur ou soit un Pion
@@ -51,9 +52,11 @@ class Wall : public Piece
 private:
     pair <int,int> position_;
     bool isPlaced_=false;
+    Alignement alignement_;
+
 public:
     Wall();
-    Wall(pair <int,int> pos);
+    Wall(pair <int,int> pos, Alignement alignement);
     string toString();
     inline void setWall(){
         isPlaced_=true;

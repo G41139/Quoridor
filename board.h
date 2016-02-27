@@ -15,11 +15,10 @@ public:
     Board ();
     Board(int size);
     string toString ();
-    void placeWall(Wall *wall);
+    void placeWall(pair <int,int> pos, Alignement alignement);
     void placePawn(Pawn *Pawn, pair <int,int> pos);
     void movePawn(Direction direction, Pawn *pawn);
     bool checkWall(pair <int,int> pos);
-    bool checkPawn(Direction direction, pair <int,int>pos);
     inline vector <vector<Piece*>> getBoard(){
         return board_;
     }

@@ -13,5 +13,6 @@ HEADERS += \
     piece.h \
     side.h \
     board.h \
-    direction.h
+    direction.h \
+    alignement.h
 
