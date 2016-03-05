@@ -19,6 +19,23 @@ Pawn::Pawn() {
 Pawn::Pawn(Side side, pair <int, int> pos) {
     position_=pos;
     side_=side;
+    switch (side){
+        case Side::NORTH:
+            direction_=Direction::SUD;
+            break;
+        case Side::SOUTH:
+            direction_=Direction::NORTH;
+            break;
+        case Side::WEST:
+            direction_=Direction::EST;
+            break;
+        case Side::EST:
+            direction_=Direction::WEST;
+            break;
+        case Side::BLANK:
+            direction_=Direction::NORTH;
+            break;
+    }
 }
 string Wall::toString(){
     string ch="";

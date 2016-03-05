@@ -15,10 +15,12 @@ public:
     Board ();
     Board(int size);
     string toString ();
+    bool checkLeftArm(pair <int,int> pos, Direction direction); // Renvoi true si il y a un mur à gauche
+    bool checkFrontWall(pair <int,int> pos,Direction direction); // Renvoi true si il y a un mur en face
     void placeWall(pair <int,int> pos, Alignement alignement);
     void placePawn(Pawn *Pawn, pair <int,int> pos);
     void movePawn(Direction direction, Pawn *pawn);
-    bool checkWall(pair <int,int> pos);
+    void rotatePawn(Direction *direction, int *cpt, bool leftRotation);
     inline vector <vector<Piece*>> getBoard(){
         return board_;
     }

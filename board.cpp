@@ -37,11 +37,51 @@ string Board::toString(){
     return ch;
 }
 
+bool Board::checkLeftArm(pair<int,int> pos, Direction direction)
+{
+    bool isPresent=true;
+    switch (direction){
+        case Direction::NORTH:
+            isPresent=board_[pos.first][pos.second-1]->isEmpty();
+            break;
+        case Direction::SUD:
+            isPresent=board_[pos.first][pos.second+1]->isEmpty();
+            break;
+        case Direction::WEST:
+            isPresent=board_[pos.first+1][pos.second]->isEmpty();
+            break;
+        case Direction::EST:
+            isPresent=board_[pos.first-1][pos.second]->isEmpty();
+            break;
+    }
+    return isPresent;
+}
+
+bool Board::checkFrontWall(pair<int, int> pos, Direction direction)
+{
+    bool isPresent=true;
+    switch (direction){
+        case Direction::NORTH:
+            isPresent=board_[pos.first-1][pos.second]->isEmpty();
+            break;
+        case Direction::SUD:
+            isPresent=board_[pos.first+1][pos.second+1]->isEmpty();
+            break;
+        case Direction::WEST:
+            isPresent=board_[pos.first][pos.second-1]->isEmpty();
+            break;
+        case Direction::EST:
+            isPresent=board_[pos.first-1][pos.second+1]->isEmpty();
+            break;
+    }
+    return isPresent;
+
+}
 void Board::placeWall(pair<int, int> pos, Alignement alignement)
 {
     if((alignement==Alignement::HORIZONTAL && (pos.first==0 || pos.first==size_ || (pos.second==0 && pos.first % 2 ==0) || pos.second==size_)) ||
          (alignement==Alignement::VERTICAL && (pos.second==0 || pos.second==size_ || (pos.first==0 && pos.second % 2 ==0) || pos.second==size_)) ){
-        throw new invalid_argument ("A wall can be place on the bord of the board game !");
+        throw new invalid_argument ("A wall can be placed on the bord of the board game !");
     }
     switch (alignement){
         case Alignement::HORIZONTAL:
@@ -211,5 +251,27 @@ void Board::movePawn(Direction direction, Pawn *pawn)
                 Pawn *temp2= new Pawn();
                 board_[pawn->getPosition().first][pawn->getPosition().second]=temp2;
             }
+    }
+}
+
+void Board::rotatePawn(Direction *direction, int *cpt, bool leftRotation)
+{
+    switch (*direction){
+        case Direction::NORTH:
+            if(leftRotation){*cpt--;*direction=Direction::WEST;}
+            else{*cpt++;*direction=Direction::EST;}
+            break;
+        case Direction::SUD:
+            if(leftRotation){*cpt--;*direction=Direction::EST;}
+            else{leftRotation++;*direction=Direction::WEST;}
+            break;
+        case Direction::EST:
+            if(leftRotation){*cpt++;*direction=Direction::NORTH;}
+            else{*cpt--;*direction=Direction::SUD;}
+            break;
+        case Direction::WEST:
+            if(leftRotation){*cpt--;*direction=Direction::SUD;}
+            else{*cpt++;*direction=Direction::NORTH;}
+            break;
     }
 }

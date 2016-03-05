@@ -25,6 +25,7 @@ class Pawn : public Piece
 private:
     Side side_;
     pair <int,int> position_;
+    Direction direction_;
     bool isPlaced_=false;
 public:
     Pawn();

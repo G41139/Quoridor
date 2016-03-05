@@ -6,7 +6,8 @@ CONFIG -= qt
 SOURCES += main.cpp \
     player.cpp \
     piece.cpp \
-    board.cpp
+    board.cpp \
+    game.cpp
 
 HEADERS += \
     player.h \
@@ -14,5 +15,6 @@ HEADERS += \
     side.h \
     board.h \
     direction.h \
-    alignement.h
+    alignement.h \
+    game.h
 

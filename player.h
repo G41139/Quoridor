@@ -2,31 +2,30 @@
 #define PLAYER
 #include <string>
 #include "side.h"
+#include "piece.h"
 using namespace std;
 class Player{
 private:
-    string name_;
-    //Pawn pawn_;
+    Pawn pawn_;
     bool winner_=false;
-    bool isPlaying;
     int nbWall_;
     Side side_;
 
 public:
-    Player(string name, Side side);
-    bool isWinner();
-    inline string getName(){
-        return name_;
-    }
+    Player(Side side);
     inline void winGame(){
         winner_=true;
     }
     inline Side getSide(){
         return side_;
     }
-    //inline Pawn getPawn(){
-      //  return pawn_;
-    //}
+    inline Pawn getPawn(){
+        return pawn_;
+    }
+    inline int getNbWall(){
+        return nbWall_;
+    }
+    void pickWall();
 
 };
 

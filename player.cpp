@@ -1,10 +1,18 @@
 #include <string>
 #include "player.h"
+#include <stdexcept>
 using namespace std;
 
-Player::Player(string name, Side side)
+Player::Player(Side side)
 {
-    name_=name;
     side_=side;
+}
+
+void Player::pickWall()
+{
+    if(nbWall_==0){
+        throw new invalid_argument ("The wall stock is empty !");
+    }
+    nbWall_--;
 }
 
