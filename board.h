@@ -21,6 +21,9 @@ public:
     void placePawn(Pawn *Pawn, pair <int,int> pos);
     void movePawn(Direction direction, Pawn *pawn);
     void rotatePawn(Direction *direction, int *cpt, bool leftRotation);
+    bool objectifReached(Side initSide, pair<int,int> pos);
+    bool existWay(pair<int,int> initPos,Side initSide);
+    void virtualDeplacement(pair<int,int> *pos, Direction direction);
     inline vector <vector<Piece*>> getBoard(){
         return board_;
     }

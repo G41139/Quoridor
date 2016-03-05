@@ -54,7 +54,7 @@ bool Board::checkLeftArm(pair<int,int> pos, Direction direction)
             isPresent=board_[pos.first-1][pos.second]->isEmpty();
             break;
     }
-    return isPresent;
+    return !isPresent;
 }
 
 bool Board::checkFrontWall(pair<int, int> pos, Direction direction)
@@ -65,16 +65,16 @@ bool Board::checkFrontWall(pair<int, int> pos, Direction direction)
             isPresent=board_[pos.first-1][pos.second]->isEmpty();
             break;
         case Direction::SUD:
-            isPresent=board_[pos.first+1][pos.second+1]->isEmpty();
+            isPresent=board_[pos.first+1][pos.second]->isEmpty();
             break;
         case Direction::WEST:
             isPresent=board_[pos.first][pos.second-1]->isEmpty();
             break;
         case Direction::EST:
-            isPresent=board_[pos.first-1][pos.second+1]->isEmpty();
+            isPresent=board_[pos.first][pos.second+1]->isEmpty();
             break;
     }
-    return isPresent;
+    return !isPresent;
 
 }
 void Board::placeWall(pair<int, int> pos, Alignement alignement)
@@ -273,5 +273,88 @@ void Board::rotatePawn(Direction *direction, int *cpt, bool leftRotation)
             if(leftRotation){*cpt--;*direction=Direction::SUD;}
             else{*cpt++;*direction=Direction::NORTH;}
             break;
+    }
+}
+
+bool Board::objectifReached(Side initSide, pair<int,int> pos)
+{
+    bool reached=false;
+    int trueSize=size_*2-1;
+    switch (initSide){
+        case Side::NORTH:
+            if(pos.first+2==trueSize)
+                reached=true;
+            break;
+        case Side::SOUTH:
+            if(pos.first-2==0)
+                reached=true;
+            break;
+        case Side::WEST:
+            if(pos.second+2==trueSize)
+                reached=true;
+            break;
+        case Side::EST:
+            if(pos.second-2==0)
+                reached=true;
+            break;
+    }
+    return reached;
+}
+
+bool Board::existWay(pair<int, int> initPos,Side initSide)
+{
+    bool exist=true;
+    Direction initDirection;
+    Direction *pinitDirection= &initDirection;
+    switch (initSide){
+        case Side::NORTH:
+            initDirection=Direction::SUD;
+            break;
+        case Side::SOUTH:
+            initDirection=Direction::NORTH;
+            break;
+        case Side::WEST:
+            initDirection=Direction::EST;
+            break;
+        case Side::EST:
+            initDirection=Direction::WEST;
+            break;
+        case Side::BLANK:
+            initDirection=Direction::NORTH;
+            break;
+    }
+    int cptRotation=0;
+    int *pcptRotation=&cptRotation;
+    pair <int,int> virtualPos=initPos;
+    pair <int,int> *pvirtualPos=&virtualPos;
+    while(!(objectifReached(initSide,virtualPos)) && cptRotation > -15 && cptRotation<15 ){
+        if(cptRotation==0){
+            if(!(checkFrontWall(virtualPos,initDirection)))
+                virtualDeplacement(&virtualPos,initDirection);
+            else
+                rotatePawn(pinitDirection,pcptRotation,false);
+        }else{
+            if(!(checkLeftArm(virtualPos,initDirection)))
+                rotatePawn(pinitDirection,pcptRotation,true);
+            else{
+                if(!(checkFrontWall(virtualPos,initDirection)))
+                    virtualDeplacement(pvirtualPos,initDirection);
+                else
+                    rotatePawn(pinitDirection,pcptRotation,false);
+            }
+        }
+        if(cptRotation<-15 || cptRotation>15)
+            exist=false;
+    }
+    return !exist;
+}
+
+void Board::virtualDeplacement(pair<int, int> *pos, Direction direction)
+{
+    switch(direction){
+        case Direction::NORTH: pos->first=pos->first-2;break;
+        case Direction::SUD: pos->first=pos->first+2;break;
+        case Direction::EST: pos->second=pos->second+2;break;
+        case Direction::WEST : pos->second=pos->second-2;break;
     }
 }
