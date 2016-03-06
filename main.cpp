@@ -16,7 +16,7 @@ int main()
     board->placeWall({1,4},Alignement::HORIZONTAL);
     board->placeWall({1,8},Alignement::HORIZONTAL);
     board->placeWall({1,12},Alignement::HORIZONTAL);
-    board->placeWall({0,15},Alignement::VERTICAL);
+    //board->placeWall({0,15},Alignement::VERTICAL);
 
 
     cout << board->toString() << endl;
