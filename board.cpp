@@ -147,30 +147,27 @@ void Board::placeWall(pair<int, int> pos, Alignement alignement)
 void Board::placePawn(Pawn *pawn, pair <int,int> pos)
 {
     board_[pos.first][pos.second]=pawn;
+    pawn->setPlaced();
 }
 
 void Board::movePawn(Direction direction, Pawn *pawn)
 {
     pair<int,int> pos=pawn->getPosition();
-    //Ajouter des exception à la place des booléens result
-    bool result=true;
     switch (direction){
         case Direction::NORTH:
             if(pos.first==0 || !(board_[pos.first-1][pos.second]->isEmpty()) || !(board_[pos.first-2][pos.second]->isEmpty()) ){
-                result=false;
+                throw new invalid_argument ("The position is invalid !");
             }else{
                 if( board_[pos.first-2][pos.second]->isEmpty()==false){
                     pair <int,int> tempPos { pos.first-4, pos.second};
-                    Pawn *temp= new Pawn(pawn->getSide(),tempPos);
-                    board_[temp->getPosition().first][temp->getPosition().second]=temp;
-                    delete board_[pawn->getPosition().first][pawn->getPosition().second];
+                    pawn->setPosition(tempPos);
+                    board_[tempPos.first][tempPos.second]=pawn;
+                    board_[pos.first][pos.second]= new Pawn();
                 }else{
                     pair <int,int> tempPos { pos.first-2, pos.second};
-                    Pawn *temp= new Pawn(pawn->getSide(),tempPos);
-                    board_[temp->getPosition().first][temp->getPosition().second]=temp;
-                    delete board_[pawn->getPosition().first][pawn->getPosition().second];
-                    Pawn *temp2= new Pawn();
-                    board_[pawn->getPosition().first][pawn->getPosition().second]=temp2;
+                    pawn->setPosition(tempPos);
+                    board_[tempPos.first][tempPos.second]=pawn;
+                    board_[pos.first][pos.second]= new Pawn();
 
                 }
 
@@ -178,107 +175,94 @@ void Board::movePawn(Direction direction, Pawn *pawn)
             break;
         case Direction::SUD:
             if(pos.first==size_ || !(board_[pos.first+1][pos.second]->isEmpty()) || !(board_[pos.first+2][pos.second]->isEmpty()) ){
-                result=false;
+                throw new invalid_argument ("The position is invalid !");
             }else{
                 if( board_[pos.first+2][pos.second]->isEmpty()==false){
                     pair <int,int> tempPos { pos.first+4, pos.second};
-                    Pawn *temp= new Pawn(pawn->getSide(),tempPos);
-                    board_[temp->getPosition().first][temp->getPosition().second]=temp;
-                    delete board_[pawn->getPosition().first][pawn->getPosition().second];
+                    pawn->setPosition(tempPos);
+                    board_[tempPos.first][tempPos.second]=pawn;
+                    board_[pos.first][pos.second]= new Pawn();
+
                 }else{
                     pair <int,int> tempPos { pos.first+2, pos.second};
-                    Pawn *temp= new Pawn(pawn->getSide(),tempPos);
-                    board_[temp->getPosition().first][temp->getPosition().second]=temp;
-                    delete board_[pawn->getPosition().first][pawn->getPosition().second];
-                    Pawn *temp2= new Pawn();
-                    board_[pawn->getPosition().first][pawn->getPosition().second]=temp2;
+                    pawn->setPosition(tempPos);
+                    board_[tempPos.first][tempPos.second]=pawn;
+                    board_[pos.first][pos.second]= new Pawn();
                 }
             }
             break;
         case Direction::EST:
             if(pos.second==size_ || !(board_[pos.first][pos.second+1]->isEmpty()) || !(board_[pos.first][pos.second+2]->isEmpty()) ){
-                result=false;
+                throw new invalid_argument ("The position is invalid !");
             }else{
                 if( board_[pos.first][pos.second+2]->isEmpty()==false){
                     pair <int,int> tempPos { pos.first, pos.second+4};
-                    Pawn *temp= new Pawn(pawn->getSide(),tempPos);
-                    board_[temp->getPosition().first][temp->getPosition().second]=temp;
-                    delete board_[pawn->getPosition().first][pawn->getPosition().second];
+                    pawn->setPosition(tempPos);
+                    board_[tempPos.first][tempPos.second]=pawn;
+                    board_[pos.first][pos.second]= new Pawn();
                 }else{
                     pair <int,int> tempPos { pos.first, pos.second+2};
-                    Pawn *temp= new Pawn(pawn->getSide(),tempPos);
-                    board_[temp->getPosition().first][temp->getPosition().second]=temp;
-                    delete board_[pawn->getPosition().first][pawn->getPosition().second];
-                    Pawn *temp2= new Pawn();
-                    board_[pawn->getPosition().first][pawn->getPosition().second]=temp2;
+                    pawn->setPosition(tempPos);
+                    board_[tempPos.first][tempPos.second]=pawn;
+                    board_[pos.first][pos.second]= new Pawn();
                 }
             }
             break;
         case Direction::WEST:
             if(pos.second==0 || !(board_[pos.first][pos.second-1]->isEmpty()) || !(board_[pos.first][pos.second-2]->isEmpty()) ){
-                result=false;
+                throw new invalid_argument ("The position is invalid !");
             }else{
                 if( board_[pos.first][pos.second-2]->isEmpty()==false){
                     pair <int,int> tempPos { pos.first, pos.second-4};
-                    Pawn *temp= new Pawn(pawn->getSide(),tempPos);
-                    board_[temp->getPosition().first][temp->getPosition().second]=temp;
-                    delete board_[pawn->getPosition().first][pawn->getPosition().second];
+                    pawn->setPosition(tempPos);
+                    board_[tempPos.first][tempPos.second]=pawn;
+                    board_[pos.first][pos.second]= new Pawn();
                 }else{
                     pair <int,int> tempPos { pos.first, pos.second-2};
-                    Pawn *temp= new Pawn(pawn->getSide(),tempPos);
-                    board_[temp->getPosition().first][temp->getPosition().second]=temp;
-                    delete board_[pawn->getPosition().first][pawn->getPosition().second];
-                    Pawn *temp2= new Pawn();
-                    board_[pawn->getPosition().first][pawn->getPosition().second]=temp2;
+                    pawn->setPosition(tempPos);
+                    board_[tempPos.first][tempPos.second]=pawn;
+                    board_[pos.first][pos.second]= new Pawn();
                 }
             }
             break;
         case Direction::NORTH_EST :
             if(pos.first==0 || !(board_[pos.first-1][pos.second+1]->isEmpty()) || pos.second==size_ ){
-                result=false;
+                throw new invalid_argument ("The position is invalid !");
             }else{
                 pair <int,int> tempPos { pos.first-2, pos.second+2};
-                Pawn *temp= new Pawn(pawn->getSide(),tempPos);
-                board_[temp->getPosition().first][temp->getPosition().second]=temp;
-                delete board_[pawn->getPosition().first][pawn->getPosition().second];
-                Pawn *temp2= new Pawn();
-                board_[pawn->getPosition().first][pawn->getPosition().second]=temp2;
+                pawn->setPosition(tempPos);
+                board_[tempPos.first][tempPos.second]=pawn;
+                board_[pos.first][pos.second]= new Pawn();
             }
             break;
         case Direction::NORTH_WEST :
             if(pos.first==0|| !(board_[pos.first-1][pos.second-1]->isEmpty()) || pos.second==0 ){
-                result=false;
+                throw new invalid_argument ("The position is invalid !");
             }else{
                 pair <int,int> tempPos { pos.first-2, pos.second-2};
-                Pawn *temp= new Pawn(pawn->getSide(),tempPos);
-                board_[temp->getPosition().first][temp->getPosition().second]=temp;
-                delete board_[pawn->getPosition().first][pawn->getPosition().second];
-                Pawn *temp2= new Pawn();
-                board_[pawn->getPosition().first][pawn->getPosition().second]=temp2;
+                pawn->setPosition(tempPos);
+                board_[tempPos.first][tempPos.second]=pawn;
+                board_[pos.first][pos.second]= new Pawn();
             }
             break;
         case Direction::SUD_EST :
             if(pos.first==size_ || !(board_[pos.first+1][pos.second+1]->isEmpty()) || pos.second==size_ ){
-                result=false;
+                throw new invalid_argument ("The position is invalid !");
             }else{
                 pair <int,int> tempPos { pos.first+2, pos.second+2};
-                Pawn *temp= new Pawn(pawn->getSide(),tempPos);
-                board_[temp->getPosition().first][temp->getPosition().second]=temp;
-                delete board_[pawn->getPosition().first][pawn->getPosition().second];
-                Pawn *temp2= new Pawn();
-                board_[pawn->getPosition().first][pawn->getPosition().second]=temp2;
+                pawn->setPosition(tempPos);
+                board_[tempPos.first][tempPos.second]=pawn;
+                board_[pos.first][pos.second]= new Pawn();
             }
             break;
         case Direction::SUD_WEST:
             if(pos.first==size_ || !(board_[pos.first+1][pos.second-1]->isEmpty()) || pos.second==0 ){
-                result=false;
+                throw new invalid_argument ("The position is invalid !");
             }else{
                 pair <int,int> tempPos { pos.first+2, pos.second-2};
-                Pawn *temp= new Pawn(pawn->getSide(),tempPos);
-                board_[temp->getPosition().first][temp->getPosition().second]=temp;
-                delete board_[pawn->getPosition().first][pawn->getPosition().second];
-                Pawn *temp2= new Pawn();
-                board_[pawn->getPosition().first][pawn->getPosition().second]=temp2;
+                pawn->setPosition(tempPos);
+                board_[tempPos.first][tempPos.second]=pawn;
+                board_[pos.first][pos.second]= new Pawn();
             }
     }
 }

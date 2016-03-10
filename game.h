@@ -7,15 +7,17 @@ using namespace std;
 
 class Game{
     private :
-        bool gameOver_=false;
         int nbPlayer_;
         Board board_;
         vector <Player*> listPlayer_;
 
     public:
-        Game();
+        bool gameOver_=false;
+        void addPlayer(Player *p1, Player *p2);
         Game(int nbPlayer, int size);
         void play();
+        void printInstruction();
+        void initializeGame();
         inline void gameOver(){
             gameOver_=true;
         }

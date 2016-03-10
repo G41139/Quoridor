@@ -30,6 +30,7 @@ private:
 public:
     Pawn();
     Pawn (Side side,pair <int,int> pos);
+    void initializePawnPosition(int size);
     string toString();
     inline void setPosition(pair <int,int> pos){
         position_=pos;
@@ -43,6 +44,12 @@ public:
     }
     inline bool isEmpty(){
         return !isPlaced_;
+    }
+    inline void setSide(Side side){
+        side_=side;
+    }
+    inline void setPlaced(){
+        isPlaced_=true;
     }
 };
 

@@ -6,7 +6,7 @@
 using namespace std;
 class Player{
 private:
-    Pawn pawn_;
+    Pawn* pawn_;
     bool winner_=false;
     int nbWall_;
     Side side_;
@@ -19,13 +19,14 @@ public:
     inline Side getSide(){
         return side_;
     }
-    inline Pawn getPawn(){
+    inline Pawn* getPawn(){
         return pawn_;
     }
     inline int getNbWall(){
         return nbWall_;
     }
     void pickWall();
+    void initializePawnPlayer(int sizeBoard);
 
 };
 

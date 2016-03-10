@@ -7,7 +7,8 @@ SOURCES += main.cpp \
     player.cpp \
     piece.cpp \
     board.cpp \
-    game.cpp
+    game.cpp \
+    subject.cpp
 
 HEADERS += \
     player.h \
@@ -16,5 +17,7 @@ HEADERS += \
     board.h \
     direction.h \
     alignement.h \
-    game.h
+    game.h \
+    subject.h \
+    observer.h
 

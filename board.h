@@ -12,7 +12,7 @@ private:
     int size_;
     vector <vector<Piece*>> board_;
 public:
-    Board ();
+   // Board ();
     Board(int size);
     string toString ();
     bool checkLeftArm(pair <int,int> pos, Direction direction); // Renvoi true si il y a un mur à gauche

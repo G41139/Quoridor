@@ -40,9 +40,9 @@ Pawn::Pawn(Side side, pair <int, int> pos) {
 string Wall::toString(){
     string ch="";
     if(isPlaced_){
-        ch=" * ";
-    }else{
         ch=" # ";
+    }else{
+        ch=" * ";
     }
     return ch;
 }
@@ -68,4 +68,33 @@ string Pawn::toString(){
     }
     return ch;
 }
-
+void Pawn::initializePawnPosition(int size){
+    int sizeBoard=2*size-1;
+    pair <int, int > pos;
+    switch (side_){
+        case Side::NORTH:
+            pos.first=0;
+            pos.second=sizeBoard/2;
+            this->setPosition(pos);
+            this->setSide(side_);
+            break;
+       case Side::SOUTH:
+           pos.first=sizeBoard-1;
+           pos.second=sizeBoard/2;
+           this->setPosition(pos);
+           this->setSide(side_);
+           break;
+       case Side::WEST:
+            pos.first=sizeBoard/2;
+            pos.second=0;
+            this->setPosition(pos);
+            this->setSide(side_);
+            break;
+       case Side::EST:
+            pos.first=sizeBoard/2;
+            pos.second=sizeBoard-1;
+            this->setPosition(pos);
+            this->setSide(side_);
+        break;
+    }
+}
