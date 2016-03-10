@@ -42,32 +42,34 @@ void Game::play()
     Board board = game.getBoard();
     // Initialisation des Joueurs et des pions
     Player *p1,*p2;
-    p1= new Player(Side::NORTH);
+    p1= new Player(Side::NORTH,board_.getSize()+1);
     p1->initializePawnPlayer(board_.getSize());
     Pawn *pawn1= new Pawn(p1->getSide(),p1->getPawn()->getPosition());
     board_.placePawn(pawn1,pawn1->getPosition());
-    p2= new Player(Side::SOUTH);
+    p2= new Player(Side::SOUTH,board_.getSize()+1);
     p2->initializePawnPlayer(board_.getSize());
     Pawn *pawn2 = new Pawn(p2->getSide(),p2->getPawn()->getPosition());
     board_.placePawn(pawn2,pawn2->getPosition());
     game.addPlayer(p1,p2);
     Player *p3, *p4;
     if(nbPlayer==4){
-        p3= new Player(Side::WEST);
+        p3= new Player(Side::WEST,(board_.getSize()+1)/2);
         p3->initializePawnPlayer(board_.getSize());
         Pawn *pawn3= new Pawn(p3->getSide(),p3->getPawn()->getPosition());
         board_.placePawn(pawn3,pawn3->getPosition());
-        p4 = new Player(Side::EST);
+        p4 = new Player(Side::EST,(board_.getSize()+1)/2);
         p4->initializePawnPlayer(board_.getSize());
         Pawn *pawn4 =  new Pawn(p4->getSide(),p4->getPawn()->getPosition());
         board_.placePawn(pawn4,pawn4->getPosition());
         game.addPlayer(p3,p4);
+        p1->setNbWall((board_.getSize()+1)/2);
+        p2->setNbWall((board_.getSize()+1)/2);
     }
     // Fin initialisation des joueurs et des pions
 
     int currentPlayer = 0; // on commence toujours par le nord
 
-    while(!game.gameOver_){
+    while(gameOver_==false){
         cout << "#################################" << endl;
         cout << "#       Plateau de jeu          #" << endl;
         cout << "#################################" << endl;
@@ -169,6 +171,10 @@ void Game::play()
             currentPlayer=0;
         else
             currentPlayer++;
+        if(playerHasWon(tempPlayer)){
+            gameOver();
+            cout << "Le joueur " << currentPlayer << " remporte la partie !" << endl;
+        }
     }
 
 
@@ -223,6 +229,31 @@ bool Game::verifyAllPlayerWay(Player *p1, Player *p2)
     result1=board_.existWay(p1->getPawn()->getPosition(),p1->getPawn()->getSide());
     result2=board_.existWay(p2->getPawn()->getPosition(),p2->getPawn()->getSide());
     return result1 && result2;
+}
+
+bool Game::playerHasWon(Player *p)
+{
+    bool win=false;
+    int trueSize=board_.getSize()*2-1;
+    switch (p->getSide()){
+        case Side::NORTH:
+            if(p->getPawn()->getPosition().first==trueSize-1)
+                win=true;
+            break;
+        case Side::SOUTH:
+            if(p->getPawn()->getPosition().first==0)
+                win=true;
+            break;
+        case Side::WEST:
+            if(p->getPawn()->getPosition().second==trueSize-1)
+                win=true;
+            break;
+        case Side::EST:
+            if(p->getPawn()->getPosition().second==0)
+                win=true;
+            break;
+    }
+    return win;
 }
 
 

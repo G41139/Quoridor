@@ -3,9 +3,9 @@
 #include <stdexcept>
 using namespace std;
 
-Player::Player(Side side )
+Player::Player(Side side , int nbWall)
 {
-    nbWall_=10;
+    nbWall_=nbWall;
     side_=side;
     pawn_= new Pawn();
     pawn_->setSide(side);

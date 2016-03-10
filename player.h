@@ -12,10 +12,7 @@ private:
     Side side_;
 
 public:
-    Player(Side side);
-    inline void winGame(){
-        winner_=true;
-    }
+    Player(Side side, int nbWall);
     inline Side getSide(){
         return side_;
     }
@@ -25,6 +22,10 @@ public:
     inline int getNbWall(){
         return nbWall_;
     }
+    inline void setNbWall(int nbWall){
+        nbWall_=nbWall;
+    }
+
     void pickWall();
     void initializePawnPlayer(int sizeBoard);
 

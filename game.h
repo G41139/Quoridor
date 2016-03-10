@@ -26,6 +26,7 @@ class Game{
         inline Board getBoard(){
             return board_;
         }
+        bool playerHasWon(Player *p);
 };
 
 #endif // GAME
