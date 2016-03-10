@@ -5,6 +5,7 @@ using namespace std;
 
 Player::Player(Side side )
 {
+    nbWall_=10;
     side_=side;
     pawn_= new Pawn();
     pawn_->setSide(side);

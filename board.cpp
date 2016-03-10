@@ -397,3 +397,19 @@ void Board::virtualDeplacement(pair<int, int> *pos, Direction direction)
         case Direction::WEST : pos->second=pos->second-2;break;
     }
 }
+
+void Board::removeWall(pair<int, int> pos, Alignement align)
+{
+    switch(align){
+        case Alignement::HORIZONTAL:
+            board_[pos.first][pos.second]= new Wall();
+            board_[pos.first][pos.second+1]= new Wall();
+            board_[pos.first][pos.second+2]= new Wall();
+            break;
+        case Alignement::VERTICAL:
+            board_[pos.first][pos.second]= new Wall();
+            board_[pos.first+1][pos.second]= new Wall();
+            board_[pos.first+2][pos.second]= new Wall();
+            break;
+    }
+}

@@ -9,10 +9,6 @@ using namespace std;
 
 int main()
 {
-
-    //Game *game=nullptr;
-    //game->play();
-
     Game * game= new Game(2,7);
     game->play();
     return 0;

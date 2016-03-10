@@ -17,7 +17,9 @@ class Game{
         Game(int nbPlayer, int size);
         void play();
         void printInstruction();
-        void initializeGame();
+        pair<int, int> askPositionWall();
+        void removeWall(pair<int, int> pos, Alignement align);
+        bool verifyAllPlayerWay(Player *p1, Player *p2);
         inline void gameOver(){
             gameOver_=true;
         }

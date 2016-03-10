@@ -24,6 +24,7 @@ public:
     bool objectifReached(Side initSide, pair<int,int> pos);
     bool existWay(pair<int,int> initPos,Side initSide);
     void virtualDeplacement(pair<int,int> *pos, Direction direction);
+    void removeWall(pair <int,int> pos, Alignement align);
     inline vector <vector<Piece*>> getBoard(){
         return board_;
     }
