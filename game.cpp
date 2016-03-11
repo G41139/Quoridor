@@ -1,6 +1,7 @@
 #include "board.h"
 #include "game.h"
 #include <iostream>
+#include <stdexcept>
 
 
 void Game::addPlayer(Player *p1, Player *p2)
@@ -117,8 +118,9 @@ void Game::play()
             case 'H':
                 try{
                 board_.movePawn(Direction::NORTH,tempPlayer->getPawn());
-            }catch (exception e){
+            }catch (const std::invalid_argument& e){
                     cerr << e.what() << endl;
+
                 }
                 break;
             case 'D':
