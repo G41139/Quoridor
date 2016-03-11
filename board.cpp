@@ -153,10 +153,11 @@ void Board::placePawn(Pawn *pawn, pair <int,int> pos)
 void Board::movePawn(Direction direction, Pawn *pawn)
 {
     pair<int,int> pos=pawn->getPosition();
+    int trueSize=size_*2-1;
     switch (direction){
         case Direction::NORTH:
             if(pos.first==0 || !(board_[pos.first-1][pos.second]->isEmpty()) || !(board_[pos.first-2][pos.second]->isEmpty()) ){
-                throw new invalid_argument ("The position is invalid !");
+                throw invalid_argument ("The position is invalid !");
             }else{
                 if( board_[pos.first-2][pos.second]->isEmpty()==false){
                     pair <int,int> tempPos { pos.first-4, pos.second};
@@ -174,8 +175,8 @@ void Board::movePawn(Direction direction, Pawn *pawn)
             }
             break;
         case Direction::SUD:
-            if(pos.first==size_ || !(board_[pos.first+1][pos.second]->isEmpty()) || !(board_[pos.first+2][pos.second]->isEmpty()) ){
-                throw new invalid_argument ("The position is invalid !");
+            if(pos.first==trueSize-1 || !(board_[pos.first+1][pos.second]->isEmpty()) || !(board_[pos.first+2][pos.second]->isEmpty()) ){
+                throw invalid_argument ("The position is invalid !");
             }else{
                 if( board_[pos.first+2][pos.second]->isEmpty()==false){
                     pair <int,int> tempPos { pos.first+4, pos.second};
@@ -192,8 +193,8 @@ void Board::movePawn(Direction direction, Pawn *pawn)
             }
             break;
         case Direction::EST:
-            if(pos.second==size_ || !(board_[pos.first][pos.second+1]->isEmpty()) || !(board_[pos.first][pos.second+2]->isEmpty()) ){
-                throw new invalid_argument ("The position is invalid !");
+            if(pos.second==trueSize-1 || !(board_[pos.first][pos.second+1]->isEmpty()) || !(board_[pos.first][pos.second+2]->isEmpty()) ){
+                throw invalid_argument ("The position is invalid !");
             }else{
                 if( board_[pos.first][pos.second+2]->isEmpty()==false){
                     pair <int,int> tempPos { pos.first, pos.second+4};
@@ -210,7 +211,7 @@ void Board::movePawn(Direction direction, Pawn *pawn)
             break;
         case Direction::WEST:
             if(pos.second==0 || !(board_[pos.first][pos.second-1]->isEmpty()) || !(board_[pos.first][pos.second-2]->isEmpty()) ){
-                throw new invalid_argument ("The position is invalid !");
+                throw invalid_argument ("The position is invalid !");
             }else{
                 if( board_[pos.first][pos.second-2]->isEmpty()==false){
                     pair <int,int> tempPos { pos.first, pos.second-4};
@@ -226,8 +227,8 @@ void Board::movePawn(Direction direction, Pawn *pawn)
             }
             break;
         case Direction::NORTH_EST :
-            if(pos.first==0 || !(board_[pos.first-1][pos.second+1]->isEmpty()) || pos.second==size_ ){
-                throw new invalid_argument ("The position is invalid !");
+            if(pos.first==0 || !(board_[pos.first-1][pos.second+1]->isEmpty()) || pos.second==trueSize-1 ){
+                throw invalid_argument ("The position is invalid !");
             }else{
                 pair <int,int> tempPos { pos.first-2, pos.second+2};
                 pawn->setPosition(tempPos);
@@ -237,7 +238,7 @@ void Board::movePawn(Direction direction, Pawn *pawn)
             break;
         case Direction::NORTH_WEST :
             if(pos.first==0|| !(board_[pos.first-1][pos.second-1]->isEmpty()) || pos.second==0 ){
-                throw new invalid_argument ("The position is invalid !");
+                throw invalid_argument ("The position is invalid !");
             }else{
                 pair <int,int> tempPos { pos.first-2, pos.second-2};
                 pawn->setPosition(tempPos);
@@ -246,8 +247,8 @@ void Board::movePawn(Direction direction, Pawn *pawn)
             }
             break;
         case Direction::SUD_EST :
-            if(pos.first==size_ || !(board_[pos.first+1][pos.second+1]->isEmpty()) || pos.second==size_ ){
-                throw new invalid_argument ("The position is invalid !");
+            if(pos.first==trueSize-1 || !(board_[pos.first+1][pos.second+1]->isEmpty()) || pos.second==trueSize-1 ){
+                throw invalid_argument ("The position is invalid !");
             }else{
                 pair <int,int> tempPos { pos.first+2, pos.second+2};
                 pawn->setPosition(tempPos);
@@ -256,8 +257,8 @@ void Board::movePawn(Direction direction, Pawn *pawn)
             }
             break;
         case Direction::SUD_WEST:
-            if(pos.first==size_ || !(board_[pos.first+1][pos.second-1]->isEmpty()) || pos.second==0 ){
-                throw new invalid_argument ("The position is invalid !");
+            if(pos.first==trueSize-1 || !(board_[pos.first+1][pos.second-1]->isEmpty()) || pos.second==0 ){
+                throw invalid_argument ("The position is invalid !");
             }else{
                 pair <int,int> tempPos { pos.first+2, pos.second-2};
                 pawn->setPosition(tempPos);

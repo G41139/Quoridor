@@ -100,43 +100,83 @@ void Game::play()
         }
 
         if(choixAction==1){
+            bool temp=false;
+            while(!temp){
+                char move='0';
+                while (move != 'H' && move != 'B' && move !='G' && move != 'D' && move !='A' && move !='E' &&
+                       move !='W' && move !='C'){
+                    cout << "Choisissez votre déplacement ( H = Haut, B = Bas, G= Gauche, D=droite, diagonale droite haut : E , diagonale droite bas :C,"
+                            " diagonale gauche haut :A , diagonale gauche bas : W  ) : ";
+                    cin >> move;
+                    cout << endl;
+                }
 
-            char move='0';
-            while (move != 'H' && move != 'B' && move !='G' && move != 'D'){
-                cout << "Choisissez votre déplacement ( H = Haut, B = Bas, G= Gauche, D=droite) : ";
-                cin >> move;
-                cout << endl;
-            }
-            switch (move){
-            case 'B':
-                try{
-                board_.movePawn(Direction::SUD,tempPlayer->getPawn());
-            }catch (exception e){
-                    cerr << e.what() << endl;
+                switch (move){
+                case 'B':
+                    try{
+                    board_.movePawn(Direction::SUD,tempPlayer->getPawn());
+                    temp=true;
+                }catch (exception &e){
+                        cerr << e.what() << endl;
+                    }
+                    break;
+                case 'H':
+                    try{
+                    board_.movePawn(Direction::NORTH,tempPlayer->getPawn());
+                    temp=true;
+                }catch (exception &e){
+                        cerr << e.what() << endl;
+                    }
+                    break;
+                case 'D':
+                    try{
+                    board_.movePawn(Direction::EST,tempPlayer->getPawn());
+                    temp=true;
+                }catch (exception &e){
+                        cerr << e.what() << endl;
+                    }
+                    break;
+                case 'G':
+                    try{
+                    board_.movePawn(Direction::WEST,tempPlayer->getPawn());
+                    temp=true;
+                }catch (exception &e){
+                        cerr << e.what() << endl;
+                    }
+                    break;
+                case 'E':
+                    try{
+                    board_.movePawn(Direction::NORTH_EST,tempPlayer->getPawn());
+                    temp=true;
+                }catch (exception &e){
+                        cerr << e.what() << endl;
+                    }
+                    break;
+                case 'A':
+                    try{
+                    board_.movePawn(Direction::NORTH_WEST,tempPlayer->getPawn());
+                    temp=true;
+                }catch (exception &e){
+                        cerr << e.what() << endl;
+                    }
+                    break;
+                case 'C':
+                    try{
+                    board_.movePawn(Direction::SUD_EST,tempPlayer->getPawn());
+                    temp=true;
+                }catch (exception &e){
+                        cerr << e.what() << endl;
+                    }
+                    break;
+                    case 'W':
+                        try{
+                        board_.movePawn(Direction::SUD_WEST,tempPlayer->getPawn());
+                        temp=true;
+                    }catch (exception &e){
+                        cerr << e.what() << endl;
+                    }
+                    break;
                 }
-                break;
-            case 'H':
-                try{
-                board_.movePawn(Direction::NORTH,tempPlayer->getPawn());
-            }catch (const std::invalid_argument& e){
-                    cerr << e.what() << endl;
-
-                }
-                break;
-            case 'D':
-                try{
-                board_.movePawn(Direction::EST,tempPlayer->getPawn());
-            }catch (exception e){
-                    cerr << e.what() << endl;
-                }
-                break;
-            case 'G':
-                try{
-                board_.movePawn(Direction::WEST,tempPlayer->getPawn());
-            }catch (exception e){
-                    cerr << e.what() << endl;
-                }
-                break;
             }
         }if(choixAction==2){
             bool ok=false;
@@ -238,22 +278,22 @@ bool Game::playerHasWon(Player *p)
     bool win=false;
     int trueSize=board_.getSize()*2-1;
     switch (p->getSide()){
-        case Side::NORTH:
-            if(p->getPawn()->getPosition().first==trueSize-1)
-                win=true;
-            break;
-        case Side::SOUTH:
-            if(p->getPawn()->getPosition().first==0)
-                win=true;
-            break;
-        case Side::WEST:
-            if(p->getPawn()->getPosition().second==trueSize-1)
-                win=true;
-            break;
-        case Side::EST:
-            if(p->getPawn()->getPosition().second==0)
-                win=true;
-            break;
+    case Side::NORTH:
+        if(p->getPawn()->getPosition().first==trueSize-1)
+            win=true;
+        break;
+    case Side::SOUTH:
+        if(p->getPawn()->getPosition().first==0)
+            win=true;
+        break;
+    case Side::WEST:
+        if(p->getPawn()->getPosition().second==trueSize-1)
+            win=true;
+        break;
+    case Side::EST:
+        if(p->getPawn()->getPosition().second==0)
+            win=true;
+        break;
     }
     return win;
 }
