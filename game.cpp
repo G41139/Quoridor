@@ -2,6 +2,7 @@
 #include "game.h"
 #include <iostream>
 #include <stdexcept>
+#include <observergame.h>
 
 
 void Game::addPlayer(Player *p1, Player *p2)
@@ -32,6 +33,7 @@ void Game::play()
         cin >> nbPlayer;
         cout << endl;
     }
+    int k =9;
 
     int size=0;
     while(size<5 || size>19 || size%2==0){
@@ -40,7 +42,7 @@ void Game::play()
         cout << endl;
     }
     Game game = Game(nbPlayer,size);
-    Board board = game.getBoard();
+
     // Initialisation des Joueurs et des pions
     Player *p1,*p2;
     p1= new Player(Side::NORTH,board_.getSize()+1);
@@ -74,7 +76,13 @@ void Game::play()
         cout << "#################################" << endl;
         cout << "#       Plateau de jeu          #" << endl;
         cout << "#################################" << endl;
-        cout << board_.toString() << endl;
+
+        if(k==9){
+            k=3;
+            cout << board_.toString() << endl;
+        }
+        ObserverGame obs (&board_);
+
         cout << "Le joueur courant est le joueur : " << currentPlayer+1 << endl;
         Player *tempPlayer;
         switch (currentPlayer){
@@ -168,11 +176,11 @@ void Game::play()
                         cerr << e.what() << endl;
                     }
                     break;
-                    case 'W':
-                        try{
-                        board_.movePawn(Direction::SUD_WEST,tempPlayer->getPawn());
-                        temp=true;
-                    }catch (exception &e){
+                case 'W':
+                    try{
+                    board_.movePawn(Direction::SUD_WEST,tempPlayer->getPawn());
+                    temp=true;
+                }catch (exception &e){
                         cerr << e.what() << endl;
                     }
                     break;
@@ -296,6 +304,11 @@ bool Game::playerHasWon(Player *p)
         break;
     }
     return win;
+}
+
+bool Game::possibleDiagonalDeplacement(Player *p)
+{
+
 }
 
 

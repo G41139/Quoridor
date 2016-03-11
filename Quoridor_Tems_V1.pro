@@ -8,7 +8,8 @@ SOURCES += main.cpp \
     piece.cpp \
     board.cpp \
     game.cpp \
-    subject.cpp
+    observergame.cpp \
+    sujetDObservation.cpp
 
 HEADERS += \
     player.h \
@@ -18,6 +19,7 @@ HEADERS += \
     direction.h \
     alignement.h \
     game.h \
-    subject.h \
-    observer.h
+    observergame.h \
+    sujetDObservation.h \
+    observateur.h
 

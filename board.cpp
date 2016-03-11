@@ -2,6 +2,7 @@
 #include "piece.h"
 #include <stdexcept>
 #include <string>
+#include "game.h"
 
 using namespace std;
 Board::Board(int size)
@@ -142,12 +143,14 @@ void Board::placeWall(pair<int, int> pos, Alignement alignement)
         }
 
     }
+    notifierChangement();
 }
 
 void Board::placePawn(Pawn *pawn, pair <int,int> pos)
 {
     board_[pos.first][pos.second]=pawn;
     pawn->setPlaced();
+    notifierChangement();
 }
 
 void Board::movePawn(Direction direction, Pawn *pawn)
@@ -156,7 +159,7 @@ void Board::movePawn(Direction direction, Pawn *pawn)
     int trueSize=size_*2-1;
     switch (direction){
         case Direction::NORTH:
-            if(pos.first==0 || !(board_[pos.first-1][pos.second]->isEmpty()) || !(board_[pos.first-2][pos.second]->isEmpty()) ){
+            if(pos.first==0 || !(board_[pos.first-1][pos.second]->isEmpty()) /*|| !(board_[pos.first-2][pos.second]->isEmpty())*/ ){
                 throw invalid_argument ("The position is invalid !");
             }else{
                 if( board_[pos.first-2][pos.second]->isEmpty()==false){
@@ -266,6 +269,7 @@ void Board::movePawn(Direction direction, Pawn *pawn)
                 board_[pos.first][pos.second]= new Pawn();
             }
     }
+    notifierChangement();
 }
 
 void Board::rotatePawn(Direction *direction, int *cpt, bool leftRotation)
