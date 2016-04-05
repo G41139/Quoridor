@@ -26,7 +26,6 @@ void Game::play()
     cout << "###############################################" << endl;
     cout << endl;
 
-    Game::printInstruction();
     int nbPlayer=0;
     while(nbPlayer != 2 && nbPlayer !=4){
         cout << "Veuillez choisir le nombre de joueur ( 2 ou 4 ) : ";
@@ -222,33 +221,13 @@ void Game::play()
         else
             currentPlayer++;
         if(playerHasWon(tempPlayer)){
-            gameOver();
+            game.gameOver_=true;
             cout << "Le joueur " << currentPlayer << " remporte la partie !" << endl;
         }
     }
 
 
 }
-
-void Game::printInstruction()
-{
-    cout << "################################################################################" << endl;
-    cout << "#                          Instruction du jeu                                  #" << endl;
-    cout << "#                          -------------------                                 #" << endl;
-    cout << "# Les <P> représentent des cases pions et <*> représentent des murs où un mur  #" << endl;
-    cout << "#  peut-être placé, et les <#> représentent un mur placé.                      #" << endl;
-    cout << "#                                                                              #" << endl;
-    cout << "#  Les cases <1> <2> <3> <4> représentent respectivement le joueur 1,2 ,etc... #" << endl;
-    cout << "# Pour gagner, c'est simple il suffit que votre pion arrive sur le bord de     #" << endl;
-    cout << "# l'autre côté du plateau de jeu.                                              #" << endl;
-    cout << "#                                                                              #" << endl;
-    cout << "# A chaque tour de jeu, il vous sera demander de soit déplacer un pion ou de   #" << endl;
-    cout << "# poser un mur (si il vous en reste dans votre stock de mur)                   #" << endl;
-    cout << "#                                                                              #" << endl;
-    cout << "################################################################################" << endl;
-
-}
-
 pair <int,int> Game::askPositionWall()
 {
     cout << "Choisissez la position à partir de laquel votre mur sera placé : " << endl;
@@ -302,14 +281,12 @@ bool Game::playerHasWon(Player *p)
         if(p->getPawn()->getPosition().second==0)
             win=true;
         break;
+    default:
+        break;
     }
     return win;
 }
 
-bool Game::possibleDiagonalDeplacement(Player *p)
-{
-
-}
 
 
 

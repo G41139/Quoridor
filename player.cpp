@@ -25,10 +25,11 @@ void Player::initializePawnPlayer(int size)
     pair <int, int > pos;
     switch (side_){
         case Side::NORTH:
+            pawn_->setSide(side_);
             pos.first=0;
             pos.second=sizeBoard/2;
             pawn_->setPosition(pos);
-            pawn_->setSide(side_);
+
             break;
        case Side::SOUTH:
            pos.first=sizeBoard-1;

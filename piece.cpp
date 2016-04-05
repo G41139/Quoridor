@@ -1,7 +1,6 @@
 #include "piece.h"
 
 Wall::Wall()  {
-    isPlaced_=false;
     alignement_=Alignement::BLANK;
 }
 
@@ -49,22 +48,26 @@ string Wall::toString(){
 
 string Pawn::toString(){
     string ch="";
-    switch(side_){
-    case Side::NORTH:
-        ch=" 1 ";
-        break;
-    case Side::SOUTH:
-        ch=" 2 ";
-        break;
-    case Side::WEST:
-        ch=" 3 ";
-        break;
-    case Side::EST:
-         ch=" 4 ";
-         break;
-    case Side::BLANK:
+    if(isPlaced_){
+        switch(side_){
+            case Side::NORTH:
+                ch=" 1 ";
+                break;
+            case Side::SOUTH:
+                ch=" 2 ";
+                break;
+            case Side::WEST:
+                ch=" 3 ";
+                break;
+            case Side::EST:
+                ch=" 4 ";
+                break;
+            case Side::BLANK:
+                ch=" X ";
+            break;
+    }
+    }else{
         ch=" P ";
-        break;
     }
     return ch;
 }

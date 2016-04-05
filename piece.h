@@ -49,6 +49,9 @@ public:
          * \return true si est vide, sinon false.
          */
    virtual bool isEmpty()=0;
+   virtual void setSide(Side side)=0;
+   virtual void setPlaced()=0;
+   virtual void clear()=0;
 };
 
 //Définition de la classe Pawn qui définit un pion
@@ -124,6 +127,9 @@ public:
     inline void setPlaced(){
         isPlaced_=true;
     }
+    inline void clear(){
+        isPlaced_=false;
+    }
 };
 
 
@@ -163,7 +169,7 @@ public:
     /*!
          * \brief setWall Mutateur, permet de placer un mur.
          */
-    inline void setWall(){
+    inline void setPlaced(){
         isPlaced_=true;
     }
     /*!
@@ -187,7 +193,12 @@ public:
     inline bool isEmpty(){
         return !isPlaced_;
     }
-
+    inline void clear(){
+        isPlaced_=false;
+    }
+    inline void setSide(Side side){
+        return ;
+    }
 };
 
 #endif // PIECE_H

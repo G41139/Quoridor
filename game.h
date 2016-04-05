@@ -79,10 +79,6 @@ class Game : public SujetDObservation{
          */
         void play();
         /*!
-         * \brief printInstruction Méthode affichant les instructions du jeu.
-         */
-        void printInstruction();
-        /*!
          * \brief askPositionWall Méthode de lecture de la position souhaitée pour placer un mur.
          * \return La position du mur selon les conventions de positionnement.
          */
@@ -102,12 +98,6 @@ class Game : public SujetDObservation{
                 */
         bool verifyAllPlayerWay(Player *p1, Player *p2);
         /*!
-                 * \brief gameOver Méthode permettant de mettre fin à la partie .
-                 */
-        inline void gameOver(){
-            gameOver_=true;
-        }
-        /*!
                  * \brief getBoard Accesseur en lecture du plateau de jeu.
                  * \return Le plateau de jeu.
                  */
@@ -121,7 +111,7 @@ class Game : public SujetDObservation{
                  */
         bool playerHasWon(Player *p);
 
-        bool possibleDiagonalDeplacement(Player *p);
+        void test();
 };
 
 #endif // GAME

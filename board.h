@@ -21,6 +21,11 @@ private:
     vector <vector<Piece*>> board_;
 public:
     /*!
+      * \brief Destructeur de la classe Board
+
+      */
+    ~Board()=default;
+    /*!
          * \brief Board Constructeur d'un plateau carré avec un nombre de lignes et un nombre de colonnes identiques.
          * \param size le nombre de lignes et de colonnes du plateau.
          * \throws invalid_argument exception si le nombre de lignes et de colonnes est incorrect.
@@ -120,7 +125,7 @@ public:
          * \return true Si la position est libre, sinon false.
          */
     inline bool isFree (pair <int, int> position){
-        return !(board_[position.first][position.second]->isEmpty());
+        return board_[position.first][position.second]->isEmpty();
     }
     /*!
          * \brief getPiece Accesseur en lecture d'une pièce
@@ -131,6 +136,12 @@ public:
         return board_[pos.first][pos.second];
     }
 
+    /*!
+         * \brief methode permettant de détruire les espaces mémoire réservés dans le board.
+         */
+    void destroy();
+
+    bool diagonalMovementPossible (Pawn *pawn, Direction direction);
 
 
 };
