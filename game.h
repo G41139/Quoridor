@@ -63,14 +63,14 @@ class Game : public SujetDObservation{
                 * \param nbPlayer Le nombre de joueurs.
                 * \param size La taille du plateau de jeu.
                 */
-        Game(int nbPlayer, int size);
+        Game(int size);
 
         /*!
                  * \brief addPlayer Méthode permettant d'ajouter 2 joueurs supplémentaires si la partie est à 4.
                  * \param p1 Le 1er joueur supplémentaire.
                  * \param p2 Le 2eme joueur supplémentaire.
                  */
-        void addPlayer(Player *p1, Player *p2);
+        void addPlayer();
         /*!
          * \brief play Méthode de jeu permettant au joueur courant de se déplacer, d'insérer des murs.
          * Cette méthode appelle les méthodes privées de la classe Board.
@@ -105,13 +105,40 @@ class Game : public SujetDObservation{
             return board_;
         }
         /*!
+                 * \brief getListPlayer Accesseur en lecture de la liste de joueur.
+                 * \return La liste de joueur.
+                 */
+        inline vector <Player*> getListPlayer(){
+            return listPlayer_;
+        }
+        /*!
+                 * \brief getNbPlayer Accesseur en lecture du nombre de joueur dans la partie.
+                 * \return Le nombre de joueur dans la partie.
+                 */
+        inline int getNbPlayer(){
+            return nbPlayer_;
+        }
+        /*!
+                 * \brief gameOver méthode permettant de mettre fin à la partie.
+                 */
+        inline void gameOver(){
+            gameOver_=true;
+        }
+
+        /*!
                  * \brief playerHasWon Méthode permettant de savoir si un joueur a gagné ou pas.
                  * \param p Le joueur courant.
                  * \return true si la partie est finie, sinon false.
                  */
         bool playerHasWon(Player *p);
+        bool isOver(){
+            return gameOver_;
+        }
+        void movePawn(Direction direction, Pawn *pawn);
+        void placeWall (pair <int,int> pos, Alignement align, Player *player);
+        void setSize(int size){
 
-        void test();
+        }
 };
 
 #endif // GAME

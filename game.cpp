@@ -5,15 +5,46 @@
 #include <observergame.h>
 
 
-void Game::addPlayer(Player *p1, Player *p2)
+void Game::addPlayer()
 {
+    int nbPlayer_=0;
+    while(nbPlayer_ != 2 && nbPlayer_ !=4){
+        cout << "Veuillez choisir le nombre de joueur ( 2 ou 4 ) : ";
+        cin >> nbPlayer_;
+        cout << endl;
+    }
+    // Initialisation des Joueurs et des pions
+    Player *p1,*p2;
+    p1= new Player(Side::NORTH,board_.getSize()+1);
+    p1->initializePawnPlayer(board_.getSize());
+    Pawn *pawn1= new Pawn(p1->getSide(),p1->getPawn()->getPosition());
+    board_.placePawn(pawn1,pawn1->getPosition());
+    p2= new Player(Side::SOUTH,board_.getSize()+1);
+    p2->initializePawnPlayer(board_.getSize());
+    Pawn *pawn2 = new Pawn(p2->getSide(),p2->getPawn()->getPosition());
+    board_.placePawn(pawn2,pawn2->getPosition());
     listPlayer_.push_back(p1);
     listPlayer_.push_back(p2);
+    Player *p3, *p4;
+    if(nbPlayer_==4){
+        p3= new Player(Side::WEST,(board_.getSize()+1)/2);
+        p3->initializePawnPlayer(board_.getSize());
+        Pawn *pawn3= new Pawn(p3->getSide(),p3->getPawn()->getPosition());
+        board_.placePawn(pawn3,pawn3->getPosition());
+        p4 = new Player(Side::EST,(board_.getSize()+1)/2);
+        p4->initializePawnPlayer(board_.getSize());
+        Pawn *pawn4 =  new Pawn(p4->getSide(),p4->getPawn()->getPosition());
+        board_.placePawn(pawn4,pawn4->getPosition());
+        listPlayer_.push_back(p3);
+        listPlayer_.push_back(p4);
+        p1->setNbWall((board_.getSize()+1)/2);
+        p2->setNbWall((board_.getSize()+1)/2);
+    }
+    // Fin initialisation des joueurs et des pions
 }
 
-Game::Game(int nbPlayer, int size) : board_(Board(size))
+Game::Game( int size) : board_(Board(size))
 {
-    nbPlayer_=nbPlayer;
 }
 
 void Game::play()
@@ -26,13 +57,7 @@ void Game::play()
     cout << "###############################################" << endl;
     cout << endl;
 
-    int nbPlayer=0;
-    while(nbPlayer != 2 && nbPlayer !=4){
-        cout << "Veuillez choisir le nombre de joueur ( 2 ou 4 ) : ";
-        cin >> nbPlayer;
-        cout << endl;
-    }
-    int k =9;
+    addPlayer();
 
     int size=0;
     while(size<5 || size>19 || size%2==0){
@@ -40,34 +65,6 @@ void Game::play()
         cin >> size;
         cout << endl;
     }
-    Game game = Game(nbPlayer,size);
-
-    // Initialisation des Joueurs et des pions
-    Player *p1,*p2;
-    p1= new Player(Side::NORTH,board_.getSize()+1);
-    p1->initializePawnPlayer(board_.getSize());
-    Pawn *pawn1= new Pawn(p1->getSide(),p1->getPawn()->getPosition());
-    board_.placePawn(pawn1,pawn1->getPosition());
-    p2= new Player(Side::SOUTH,board_.getSize()+1);
-    p2->initializePawnPlayer(board_.getSize());
-    Pawn *pawn2 = new Pawn(p2->getSide(),p2->getPawn()->getPosition());
-    board_.placePawn(pawn2,pawn2->getPosition());
-    game.addPlayer(p1,p2);
-    Player *p3, *p4;
-    if(nbPlayer==4){
-        p3= new Player(Side::WEST,(board_.getSize()+1)/2);
-        p3->initializePawnPlayer(board_.getSize());
-        Pawn *pawn3= new Pawn(p3->getSide(),p3->getPawn()->getPosition());
-        board_.placePawn(pawn3,pawn3->getPosition());
-        p4 = new Player(Side::EST,(board_.getSize()+1)/2);
-        p4->initializePawnPlayer(board_.getSize());
-        Pawn *pawn4 =  new Pawn(p4->getSide(),p4->getPawn()->getPosition());
-        board_.placePawn(pawn4,pawn4->getPosition());
-        game.addPlayer(p3,p4);
-        p1->setNbWall((board_.getSize()+1)/2);
-        p2->setNbWall((board_.getSize()+1)/2);
-    }
-    // Fin initialisation des joueurs et des pions
 
     int currentPlayer = 0; // on commence toujours par le nord
 
@@ -76,28 +73,13 @@ void Game::play()
         cout << "#       Plateau de jeu          #" << endl;
         cout << "#################################" << endl;
 
-        if(k==9){
-            k=3;
-            cout << board_.toString() << endl;
-        }
         ObserverGame obs (&board_);
 
         cout << "Le joueur courant est le joueur : " << currentPlayer+1 << endl;
         Player *tempPlayer;
-        switch (currentPlayer){
-        case 0 :
-            tempPlayer=p1;
-            break;
-        case 1:
-            tempPlayer=p2;
-            break;
-        case 2:
-            tempPlayer=p3;
-            break;
-        case 3:
-            tempPlayer=p4;
-            break;
-        }
+        tempPlayer=listPlayer_[currentPlayer];
+
+
         cout << "Il vous reste : " << tempPlayer->getNbWall() << " mur disponible " << endl;
         int choixAction=0;
         while (choixAction !=1 && choixAction !=2){
@@ -201,13 +183,13 @@ void Game::play()
                 pair <int,int> pos;
                 pos=askPositionWall();
                 board_.placeWall(pos,align_);
-                if(nbPlayer==2){
-                    if(verifyAllPlayerWay(p1,p2))
+                if(nbPlayer_==2){
+                    if(verifyAllPlayerWay(listPlayer_[0],listPlayer_[1]))
                         ok=true;
                     else
                         board_.removeWall(pos,align_);
                 }else{
-                    if(verifyAllPlayerWay(p1,p2)&& verifyAllPlayerWay(p3,p4))
+                    if(verifyAllPlayerWay(listPlayer_[0],listPlayer_[1])&& verifyAllPlayerWay(listPlayer_[2],listPlayer_[3]))
                         ok=true;
                     else
                         board_.removeWall(pos,align_);
@@ -216,12 +198,12 @@ void Game::play()
 
             tempPlayer->pickWall();
         }
-        if(nbPlayer==4 && currentPlayer==3 || nbPlayer==2 && currentPlayer==1)
+        if(nbPlayer_==4 && currentPlayer==3 || nbPlayer_==2 && currentPlayer==1)
             currentPlayer=0;
         else
             currentPlayer++;
         if(playerHasWon(tempPlayer)){
-            game.gameOver_=true;
+            gameOver_=true;
             cout << "Le joueur " << currentPlayer << " remporte la partie !" << endl;
         }
     }
@@ -285,6 +267,52 @@ bool Game::playerHasWon(Player *p)
         break;
     }
     return win;
+}
+
+void Game::movePawn(Direction direction, Pawn *pawn)
+{
+    switch (direction){
+    case Direction::SUD:
+        try{
+        board_.movePawn(Direction::SUD,pawn);
+    }catch (exception &e){
+            cerr << e.what() << endl;
+        }
+        break;
+    case Direction::NORTH:
+        try{
+        board_.movePawn(Direction::NORTH,pawn);
+    }catch (exception &e){
+            cerr << e.what() << endl;
+        }
+        break;
+    case Direction::EST:
+        try{
+        board_.movePawn(Direction::EST,pawn);
+    }catch (exception &e){
+            cerr << e.what() << endl;
+        }
+        break;
+    case Direction::WEST:
+        try{
+        board_.movePawn(Direction::WEST,pawn);
+    }catch (exception &e){
+            cerr << e.what() << endl;
+        }
+        break;
+    default:break;
+    }
+}
+
+
+void Game::placeWall(pair<int, int> pos, Alignement align, Player *player)
+{
+    try{
+        board_.placeWall(pos,align);
+        player->pickWall();
+    }catch (exception &e){
+        cerr << e.what() << endl;
+    }
 }
 
 
