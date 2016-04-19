@@ -6,6 +6,8 @@
 #include "piece.h"
 #include "game.h"
 #include "observergame.h"
+#include "mainwindow.h"
+#include <QApplication>
 using namespace std;
 
 int main()
@@ -170,4 +172,3 @@ int main()
     game.getBoard().destroy();
     return 0;
 }
-

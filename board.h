@@ -18,7 +18,7 @@ class Board : public SujetDObservation
 {
 private:
     int size_;
-    vector <vector<Piece*>> board_;
+    vector <vector<Piece*> > board_;
 public:
     /*!
       * \brief Destructeur de la classe Board
@@ -110,7 +110,7 @@ public:
          * \brief getBoard Accesseur en lecture du plateau de jeu.
          * \return Le plateau de jeu.
          */
-    inline vector <vector<Piece*>> getBoard(){
+    inline vector <vector<Piece*> > getBoard(){
         return board_;
     }
     /*!

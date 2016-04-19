@@ -1,12 +1,10 @@
 QT       += core gui
-
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TEMPLATE = app
-CONFIG += console c++14
-CONFIG -= app_bundle
-CONFIG -= qt
 
+QMAKE_CXXFLAGS += -std=c++11 \
+                    -pedantic-errors
 SOURCES += main.cpp \
     player.cpp \
     piece.cpp \
@@ -31,5 +29,4 @@ HEADERS += \
 
 FORMS += \
     mainwindow.ui
-
 
