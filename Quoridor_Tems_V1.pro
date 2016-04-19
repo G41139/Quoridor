@@ -1,3 +1,7 @@
+QT       += core gui
+
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
 TEMPLATE = app
 CONFIG += console c++14
 CONFIG -= app_bundle
@@ -22,4 +26,7 @@ HEADERS += \
     observergame.h \
     sujetDObservation.h \
     observateur.h
+
+FORMS +=
+
 

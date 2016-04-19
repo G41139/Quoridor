@@ -116,31 +116,31 @@ void Board::placeWall(pair<int, int> pos, Alignement alignement)
     auto size=size_*2-2;
     if((alignement==Alignement::HORIZONTAL && (pos.first==0 || pos.first==size || (pos.second==0 && pos.first % 2 ==0) || pos.second==size)) ||
             (alignement==Alignement::VERTICAL && (pos.second==0 || pos.second==size || (pos.first==0 && pos.second % 2 ==0) || pos.second==size)) ){
-        throw new invalid_argument ("A wall can't be placed on the bord of the board game !");
+        throw invalid_argument ("A wall can't be placed on the bord of the board game !");
     }
     switch (alignement){
     case Alignement::HORIZONTAL:
         if(pos.second%2==1){
-            throw new invalid_argument ("The position is invalid !");
+            throw invalid_argument ("The position is invalid !");
         }
         if(board_[pos.first][pos.second]->isEmpty()&& board_[pos.first][pos.second+1]->isEmpty() && board_[pos.first][pos.second+2]->isEmpty()){
             board_[pos.first][pos.second]->setPlaced();
             board_[pos.first][pos.second+1]->setPlaced();
             board_[pos.first][pos.second+2]->setPlaced();
         }else{
-            throw new invalid_argument ("The position is invalid ! ");
+            throw invalid_argument ("The position is invalid ! ");
         }
         break;
     case Alignement::VERTICAL:
         if(pos.first %2 ==1){
-            throw new invalid_argument ("The position is invalid !");
+            throw invalid_argument ("The position is invalid !");
         }
         if(board_[pos.first][pos.second]->isEmpty()&& board_[pos.first+1][pos.second]->isEmpty()&& board_[pos.first+2][pos.second]->isEmpty()){
             board_[pos.first][pos.second]->setPlaced();
             board_[pos.first+1][pos.second]->setPlaced();
             board_[pos.first+2][pos.second]->setPlaced();
         }else{
-            throw new invalid_argument ("The position is invalid !");
+            throw invalid_argument ("The position is invalid !");
         }
         break;
     default:
@@ -240,9 +240,44 @@ void Board::movePawn(Direction direction, Pawn *pawn)
             }
         }
         break;
-    default:
+    case Direction::NORTH_EST:
+    {
+        pair <int,int> tempPos { pos.first+2, pos.second+2};
+        pawn->setPosition(tempPos);
+        board_[tempPos.first][tempPos.second]->setPlaced();
+        board_[tempPos.first][tempPos.second]->setSide(pawn->getSide());
+        board_[pos.first][pos.second]->clear();
         break;
     }
+    case Direction::NORTH_WEST:
+    {
+        pair <int,int> tempPos ={ pos.first+2, pos.second+2};
+        pawn->setPosition(tempPos);
+        board_[tempPos.first][tempPos.second]->setPlaced();
+        board_[tempPos.first][tempPos.second]->setSide(pawn->getSide());
+        board_[pos.first][pos.second]->clear();
+        break;
+    }
+    case Direction::SUD_WEST:
+    {
+        pair <int,int> tempPos { pos.first-2, pos.second-2};
+        pawn->setPosition(tempPos);
+        board_[tempPos.first][tempPos.second]->setPlaced();
+        board_[tempPos.first][tempPos.second]->setSide(pawn->getSide());
+        board_[pos.first][pos.second]->clear();
+        break;
+    }
+    case Direction::SUD_EST:
+    {
+        pair <int,int> tempPos { pos.first-2, pos.second+2};
+        pawn->setPosition(tempPos);
+        board_[tempPos.first][tempPos.second]->setPlaced();
+        board_[tempPos.first][tempPos.second]->setSide(pawn->getSide());
+        board_[pos.first][pos.second]->clear();
+        break;
+    }
+    }
+
     notifierChangement();
 }
 
@@ -415,7 +450,28 @@ bool Board::diagonalMovementPossible(Pawn *pawn, Direction direction)
     bool result=false;
     switch (direction){
     case Direction::NORTH_EST:
-        //if(board_[pos.first][pos.second])
+        if(board_[pos.first-2][pos.second]->isEmpty()==false && board_[pos.first-4][pos.second]->isEmpty()==true &&
+                board_[pos.first-2][pos.second+2]->isEmpty()==true){
+            result=true;
+        }
+        break;
+    case Direction::NORTH_WEST:
+        if(board_[pos.first-2][pos.second]->isEmpty()==false && board_[pos.first-4][pos.second]->isEmpty()==false &&
+                board_[pos.first-2][pos.second-2]->isEmpty()==true){
+            result=true;
+        }
+        break;
+    case Direction::SUD_EST:
+        if(board_[pos.first+2][pos.second]->isEmpty()==false && board_[pos.first+4][pos.second]->isEmpty()==false &&
+                board_[pos.first+2][pos.second+2]->isEmpty()==true){
+            result=true;
+        }
+        break;
+    case Direction::SUD_WEST:
+        if(board_[pos.first+2][pos.second]->isEmpty()==false && board_[pos.first+4][pos.second]->isEmpty()==false &&
+                board_[pos.first+2][pos.second-2]->isEmpty()==true){
+            result=true;
+        }
         break;
     default:break;
     }

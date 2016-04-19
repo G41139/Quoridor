@@ -131,14 +131,26 @@ class Game : public SujetDObservation{
                  * \return true si la partie est finie, sinon false.
                  */
         bool playerHasWon(Player *p);
+        /*!
+                 * \brief isOver Méthode permettant de connaitre l'état de la partie.
+                 * \return true si la partie est finie, sinon false.
+                 */
         bool isOver(){
             return gameOver_;
         }
+        /*!
+                 * \brief movePawn Méthode permettant de déplacer un pion.
+                 * \param direction La direction du mouvement
+                 * \param pawn Le pion qui effectue le mouvement.
+                 */
         void movePawn(Direction direction, Pawn *pawn);
+        /*!
+                 * \brief placeWall Méthode permettant de placer un mur.
+                 * \param pos La position à partir de laquel on veut placer le mur.
+                 * \param align l'alignement du mur , vertical ou horizontal.
+                 * \param player le joueur qui place le mur.
+                 */
         void placeWall (pair <int,int> pos, Alignement align, Player *player);
-        void setSize(int size){
-
-        }
 };
 
 #endif // GAME
