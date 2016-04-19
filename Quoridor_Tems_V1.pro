@@ -13,7 +13,8 @@ SOURCES += main.cpp \
     board.cpp \
     game.cpp \
     observergame.cpp \
-    sujetDObservation.cpp
+    sujetDObservation.cpp \
+    mainwindow.cpp
 
 HEADERS += \
     player.h \
@@ -25,8 +26,10 @@ HEADERS += \
     game.h \
     observergame.h \
     sujetDObservation.h \
-    observateur.h
+    observateur.h \
+    mainwindow.h
 
-FORMS +=
+FORMS += \
+    mainwindow.ui
 
 

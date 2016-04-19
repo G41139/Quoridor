@@ -120,7 +120,7 @@ void Board::placeWall(pair<int, int> pos, Alignement alignement)
     }
     switch (alignement){
     case Alignement::HORIZONTAL:
-        if(pos.second%2==1){
+        if(pos.second%2==1 || pos.first%2==0){
             throw invalid_argument ("The position is invalid !");
         }
         if(board_[pos.first][pos.second]->isEmpty()&& board_[pos.first][pos.second+1]->isEmpty() && board_[pos.first][pos.second+2]->isEmpty()){
@@ -132,7 +132,7 @@ void Board::placeWall(pair<int, int> pos, Alignement alignement)
         }
         break;
     case Alignement::VERTICAL:
-        if(pos.first %2 ==1){
+        if(pos.first %2 ==1 || pos.second %2==0){
             throw invalid_argument ("The position is invalid !");
         }
         if(board_[pos.first][pos.second]->isEmpty()&& board_[pos.first+1][pos.second]->isEmpty()&& board_[pos.first+2][pos.second]->isEmpty()){
