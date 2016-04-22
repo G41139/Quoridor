@@ -154,6 +154,11 @@ public:
          * \return true Si le déplacement est possible, false sinon.
          */
     bool movementPossible (Pawn *pawn, Direction direction);
+    /*!
+         * \brief placementWallPossible Méthode permettant de savoir si un placement d'un mur est possible.
+         * \param pos La position du mur.
+         * \param align L'alignement du mur.
+         */
     bool placementWallPossible(pair<int,int> pos, Alignement align);
 
 
