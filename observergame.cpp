@@ -14,6 +14,5 @@ void ObserverGame::rafraichir(const SujetDObservation *sdo){
 }
 
 ObserverGame::~ObserverGame(){
-
 }
 

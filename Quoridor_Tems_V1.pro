@@ -12,7 +12,8 @@ SOURCES += main.cpp \
     game.cpp \
     observergame.cpp \
     sujetDObservation.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    gamegui.cpp
 
 HEADERS += \
     player.h \
@@ -25,8 +26,21 @@ HEADERS += \
     observergame.h \
     sujetDObservation.h \
     observateur.h \
-    mainwindow.h
+    mainwindow.h \
+    gamegui.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    gamegui.ui
+
+DISTFILES += \
+    images/WallV.png \
+    images/wallHpng.png \
+    images/pawn4.png \
+    images/pawn3.png \
+    images/pawn2.png \
+    images/pawn1.png \
+    images/Empty.png \
+    images/wallH.png \
+    images/EmptyWall.png
 

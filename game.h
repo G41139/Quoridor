@@ -54,6 +54,7 @@ using namespace std;
 class Game : public SujetDObservation{
     private :
         int nbPlayer_;
+        int currentPlayer;
         Board board_;
         vector <Player*> listPlayer_;
         bool gameOver_=false;
@@ -70,7 +71,7 @@ class Game : public SujetDObservation{
                  * \param p1 Le 1er joueur supplémentaire.
                  * \param p2 Le 2eme joueur supplémentaire.
                  */
-        void addPlayer();
+        void addPlayer(int nb);
         /*!
          * \brief play Méthode de jeu permettant au joueur courant de se déplacer, d'insérer des murs.
          * Cette méthode appelle les méthodes privées de la classe Board.
@@ -151,6 +152,52 @@ class Game : public SujetDObservation{
                  * \param player le joueur qui place le mur.
                  */
         void placeWall (pair <int,int> pos, Alignement align, Player *player);
+        /*!
+                 * \brief setNbPlayer Méthode permettant de modifier le nombre de joueur.
+                 * \param nb Le nombre de joueur.
+                 */
+        inline void setNbPlayer(int nb){
+            nbPlayer_=nb;
+        }
+        /*!
+                 * \brief setCurrentPlayer Méthode permettant de modifier le joueur courant.
+                 * \param nb Le nouveau joueur courant.
+                 */
+        inline void setCurrentPlayer(int current){
+            currentPlayer=current;
+        }
+        /*!
+                 * \brief getCurrentPlayer Méthode permettant de retourner le joueur courant.
+                 * \return Le numéro du joueur courant.
+                 */
+        inline int getCurrentPlayer(){
+            return currentPlayer;
+        }
+        /*!
+                 * \brief nextPlayer() Méthode permettant de passer au joueur suivant.
+                 * \param nb Le nombre de joueur.
+                 */
+        void nextPlayer();
+        /*!
+                 * \brief possibleMovement Méthode permettant de savoir si un déplacement est possible.
+                 * \param d La direction du déplacement
+                 * \param p Le pion qui effectue le déplacement.
+                 */
+        bool possibleMovement(Direction d, Pawn *p);
+        /*!
+                 * \brief possibleDiagonalMovement Méthode permettant de savoir si un déplacement en diagonal est possible.
+                 * \param d La direction du déplacement
+                 * \param p Le pion qui se déplace
+                 */
+        bool possibleDiagonalMovement( Direction d, Pawn *p);
+        /*!
+                 * \brief getPlayerAt Méthode permettant de récupérer un joueur dans la liste de joueur.
+                 * \param i L'indice du joueur dans la liste
+                 * \return Le joueur à l
+                 */
+        inline Player* getPlayerAt(int i){
+            return listPlayer_[i];
+        }
 };
 
 #endif // GAME

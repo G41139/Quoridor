@@ -52,6 +52,8 @@ public:
    virtual void setSide(Side side)=0;
    virtual void setPlaced()=0;
    virtual void clear()=0;
+   virtual Side getSide()=0;
+   virtual Alignement getAlignement()=0;
 };
 
 //Définition de la classe Pawn qui définit un pion
@@ -130,6 +132,9 @@ public:
     inline void clear(){
         isPlaced_=false;
     }
+    inline Alignement getAlignement(){
+        return Alignement::BLANK;
+    }
 };
 
 
@@ -198,6 +203,12 @@ public:
     }
     inline void setSide(Side side){
         return ;
+    }
+    inline Alignement getAlignement(){
+        return alignement_;
+    }
+    inline Side getSide(){
+        return Side::BLANK;
     }
 };
 

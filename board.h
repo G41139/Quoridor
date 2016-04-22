@@ -140,8 +140,21 @@ public:
          * \brief methode permettant de détruire les espaces mémoire réservés dans le board.
          */
     void destroy();
-
+    /*!
+         * \brief diagonalMovementPossible Méthode permettant de savoir si un déplacement diagonal est possible.
+         * \param pawn Le pion qui va effectuer le déplacement.
+         * \param direction La direction dans laquel le pion veut se déplacer.
+         * \return true Si le déplacement est possible, false sinon.
+         */
     bool diagonalMovementPossible (Pawn *pawn, Direction direction);
+    /*!
+         * \brief movementPossible Méthode permettant de savoir si un déplacement est possible.
+         * \param pawn Le pion qui va effectuer le déplacement.
+         * \param direction La direction dans laquel le pion veut se déplacer.
+         * \return true Si le déplacement est possible, false sinon.
+         */
+    bool movementPossible (Pawn *pawn, Direction direction);
+    bool placementWallPossible(pair<int,int> pos, Alignement align);
 
 
 };

@@ -5,14 +5,9 @@
 #include <observergame.h>
 
 
-void Game::addPlayer()
+void Game::addPlayer(int nb)
 {
     nbPlayer_=0;
-    while(nbPlayer_ != 2 && nbPlayer_ !=4){
-        cout << "Veuillez choisir le nombre de joueur ( 2 ou 4 ) : ";
-        cin >> nbPlayer_;
-        cout << endl;
-    }
     // Initialisation des Joueurs et des pions
     Player *p1,*p2;
     p1= new Player(Side::NORTH,board_.getSize()+1);
@@ -42,9 +37,10 @@ void Game::addPlayer()
     }
     // Fin initialisation des joueurs et des pions
     nbPlayer_=listPlayer_.size();
+    notifierChangement();
 }
 
-Game::Game( int size) : board_(Board(size))
+Game::Game( int size) : board_(Board(size)), currentPlayer(0)
 {
 }
 
@@ -72,6 +68,7 @@ pair <int,int> Game::askPositionWall()
 void Game::removeWall(pair <int,int> pos, Alignement align)
 {
     board_.removeWall(pos,align);
+    notifierChangement();
 }
 
 bool Game::verifyAllPlayerWay(Player *p1, Player *p2)
@@ -124,8 +121,22 @@ void Game::movePawn(Direction direction, Pawn *pawn)
     case Direction::WEST:
         board_.movePawn(Direction::WEST,pawn);
         break;
+    case Direction::NORTH_EST:
+        board_.movePawn(Direction::NORTH_EST,pawn);
+        break;
+    case Direction::NORTH_WEST:
+        board_.movePawn(Direction::NORTH_WEST,pawn);
+        break;
+    case Direction::SUD_EST:
+        board_.movePawn(Direction::SUD_EST,pawn);
+        break;
+    case Direction::SUD_WEST:
+        board_.movePawn(Direction::SUD_WEST,pawn);
+        break;
     default:break;
+
     }
+    notifierChangement();
 }
 
 
@@ -133,6 +144,25 @@ void Game::placeWall(pair<int, int> pos, Alignement align, Player *player)
 {
         board_.placeWall(pos,align);
         player->pickWall();
+        notifierChangement();
+}
+
+void Game::nextPlayer()
+{
+    if(this->getNbPlayer()==4 && currentPlayer==3 || this->getNbPlayer()==2 && currentPlayer==1)
+                currentPlayer=0;
+            else
+        currentPlayer++;
+}
+
+bool Game::possibleMovement(Direction d, Pawn *p)
+{
+    return board_.movementPossible(p,d);
+}
+
+bool Game::possibleDiagonalMovement(Direction d, Pawn *p)
+{
+    return board_.diagonalMovementPossible(p, d);
 }
 
 
